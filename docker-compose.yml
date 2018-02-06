@@ -1,0 +1,38 @@
+version: '3.2'
+services:
+  healthchecks:
+    build: .
+    volumes:
+      - type: volume
+        source: dummy-check
+        target: /consul_check_definitions
+  consul:
+    image: "consul:1.0.3"
+    environment:
+      CONSUL_BIND_INTERFACE: eth0
+      CONSUL_LOCAL_CONFIG: '{"enable_script_checks": true}'
+    ports:
+      - "8500:8500"
+      - "8600:8600"
+    volumes:
+      - type: volume
+        source: dummy-check
+        target: /consul/config
+      - "/var/run/docker.sock:/var/run/docker.sock"
+  vault:
+    image: "vault:0.9.3"
+    cap_add:
+      - IPC_LOCK
+    ports:
+     - "8200:8200"
+    environment:
+      VAULT_DEV_ROOT_TOKEN_ID: root
+volumes:
+  dummy-check:
+#  postgres:
+#    image: "postgres:9.4"
+#    ports:
+#     - "5432:5432"
+
+#head -1 /proc/self/cgroup  | cut -d'/' -f4
+#    `docker run --rm -it  --cap-add=IPC_LOCK -p 8200:8200 -e VAULT_DEV_ROOT_TOKEN_ID=root vault:0.8.2`
