@@ -5,7 +5,7 @@ DOCKER_ID=$(head -1 /proc/self/cgroup  | cut -d'/' -f4)
 _CHECK=$(cat <<EOT
 {
 "check": {
-    "id": "docker-test",
+    "id": "docker-test-warning",
     "name": "docker test critical",
     "docker_container_id": "${DOCKER_ID}",
     "shell": "/bin/bash",

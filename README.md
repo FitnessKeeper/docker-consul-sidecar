@@ -16,14 +16,14 @@ This deploys the check definition into a local `/consul_check_definitions` direc
 
 #### Optional
 
-- `CHECKS` - A JSON list of check names to activate.  
+- `CHECKS` - A JSON list of check names to activate. in the form of `CHECKS="foo bar"`
 
 Usage
 -----
 
 ```shell
 
-docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -e CHECKS='["docker-test", "docker-test-warning"]' fitnesskeeeper/consul-healthchecks:latest
+docker run --rm -it -v /var/run/docker.sock:/var/run/docker.sock -e CHECKS='docker-test docker-test-warning' fitnesskeeeper/consul-healthchecks:latest
 
 ```
 
