@@ -9,7 +9,7 @@ _CHECK=$(cat <<EOT
     "name": "docker test warning",
     "docker_container_id": "${DOCKER_ID}",
     "shell": "/bin/bash",
-    "args": ["/usr/local/bin/dummy.sh warning"],
+    "args": ["/usr/local/bin/dummy.sh", "warning"],
     "interval": "10s"
   }
 }
