@@ -14,7 +14,7 @@ RUN apk -v --update add \
     apk -v --purge del py-pip && \
     rm /var/cache/apk/*
 COPY scripts/*.sh /usr/local/bin/
-COPY check_definitions/*.sh /usr/local/bin/
+COPY check_definitions/*.sh /usr/local/bin/check_definitions/
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
 RUN mkdir /consul_check_definitions
 #RUN /usr/local/bin/create_check.sh > /consul_check_definitions/docker-test.json

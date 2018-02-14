@@ -10,11 +10,11 @@ JSON_SUFFIX=".json"
 
 if [ -n "$CHECKS" ]; then
    for CHECK in $CHECKS; do
-     echo "creating $CHECK Consul check definition"
-     cd /usr/local/bin
+     echo "Creating Consul check definition :  $CHECK"
+     cd /usr/local/bin/check_definitions
      ./${CHECK}${SCRIPT_SUFFIX} > /consul_check_definitions/${CHECK}${JSON_SUFFIX}
    done
 fi
-#/usr/local/bin/docker-test.sh > /consul_check_definitions/docker-test.json
+
 while true ; do echo "I am sleeping"; sleep 60;done
 #/bin/bash
