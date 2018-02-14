@@ -9,7 +9,7 @@ SCRIPT_SUFFIX=".sh"
 JSON_SUFFIX=".json"
 
 if [ -n "$CHECKS" ]; then
-   for CHECK in $CHECKS; do
+   for CHECK in $(echo "${CHECKS}" | jq -r '.[]' ); do
      echo "Creating Consul check definition :  $CHECK"
      cd /usr/local/bin/check_definitions
      ./${CHECK}${SCRIPT_SUFFIX} > /consul_check_definitions/${CHECK}${JSON_SUFFIX}
