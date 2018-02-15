@@ -15,6 +15,7 @@ _SERVICE=$(cat <<EOT
       {
         "id": "ami-up2date",
         "name": "AMI Status",
+        "notes" "Compares the running AMI to the AMI defined in the launch config",
         "docker_container_id": "${DOCKER_ID}",
         "shell": "/bin/bash",
         "args": ["/usr/local/bin/ami_up2date.sh"],
