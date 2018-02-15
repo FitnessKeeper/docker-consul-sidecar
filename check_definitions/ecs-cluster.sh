@@ -1,6 +1,6 @@
-!#/bin/bash
+#!/bin/bash
 
-ECS_CLUSTER=$(curl http://localhost:51678/v1/metadata | jq -r .Cluster)
+ECS_CLUSTER=$(curl -s http://localhost:51678/v1/metadata | jq -r .Cluster)
 DOCKER_ID=$(head -1 /proc/self/cgroup  | cut -d'/' -f4)
 
 _SERVICE=$(cat <<EOT
