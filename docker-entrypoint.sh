@@ -8,6 +8,9 @@ chmod a+w /var/run/docker.sock
 SCRIPT_SUFFIX=".sh"
 JSON_SUFFIX=".json"
 
+# Make sure you start with a clean check dir
+rm -f /consul_check_definitions/*.json
+
 if [ -n "$CHECKS" ]; then
    #for CHECK in $(echo "${CHECKS}" | jq -r '.[]' ); do
    for CHECK in ${CHECKS}; do
