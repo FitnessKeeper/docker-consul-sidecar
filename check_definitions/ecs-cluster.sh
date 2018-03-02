@@ -29,7 +29,7 @@ _SERVICE=$(cat <<EOT
         "docker_container_id": "${DOCKER_ID}",
         "shell": "/bin/bash",
         "args": ["/usr/local/bin/ecs-cloudwatch-metrics.sh"],
-        "interval": "10s",
+        "interval": "60s",
         "status": "passing"
       }
 
