@@ -21,7 +21,18 @@ _SERVICE=$(cat <<EOT
         "args": ["/usr/local/bin/ami_up2date.sh"],
         "interval": "10s",
         "status": "passing"
+      },
+      {
+        "id": "ecs-cloudwatch",
+        "name": "ECS CloudWatch",
+        "notes": "Send Metrics to CloudWatch",
+        "docker_container_id": "${DOCKER_ID}",
+        "shell": "/bin/bash",
+        "args": ["/usr/local/bin/ecs-cloudwatch-metrics.sh"],
+        "interval": "60s",
+        "status": "passing"
       }
+
     ]
   }
 }
