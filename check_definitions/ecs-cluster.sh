@@ -42,8 +42,9 @@ _SERVICE=$(cat <<EOT
         "interval": "60s",
         "status": "passing"
       }
-    ],
-    "watches":
+    ]
+  },
+  "watches":
     [
       {
         "type": "service",
@@ -51,7 +52,6 @@ _SERVICE=$(cat <<EOT
         "handler": ["/usr/local/bin/instance-draining-handler.sh"]
       }
     ]
-  }
 }
 EOT
 )
