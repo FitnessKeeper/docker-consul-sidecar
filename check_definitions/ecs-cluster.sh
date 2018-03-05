@@ -49,7 +49,7 @@ _SERVICE=$(cat <<EOT
       {
         "type": "service",
         "service": "Instance Status",
-        "handler": ["/usr/local/bin/instance-draining-handler.sh"]
+        "handler": "/usr/local/bin/instance-draining-handler.sh"
       }
     ]
 }
