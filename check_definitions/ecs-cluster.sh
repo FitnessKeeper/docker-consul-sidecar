@@ -31,8 +31,25 @@ _SERVICE=$(cat <<EOT
         "args": ["/usr/local/bin/ecs-cloudwatch-metrics.sh"],
         "interval": "60s",
         "status": "passing"
+      },
+      {
+        "id": "instance-status",
+        "name": "Instance Status",
+        "notes": "Instance and ECS Instance Status",
+        "docker_container_id": "${DOCKER_ID}",
+        "shell": "/bin/bash",
+        "args": ["/usr/local/bin/instance-status.sh"],
+        "interval": "60s",
+        "status": "passing"
       }
-
+    ],
+    "watches":
+    [
+      {
+        "type": "service",
+        "service": "Instance Status",
+        "args": ["/usr/local/bin/instance-draining-handler.sh"] 
+      }
     ]
   }
 }
