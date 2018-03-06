@@ -19,7 +19,7 @@ _SERVICE=$(cat <<EOT
         "docker_container_id": "${DOCKER_ID}",
         "shell": "/bin/bash",
         "args": ["/usr/local/bin/ami_up2date.sh"],
-        "interval": "10s",
+        "interval": "15s",
         "status": "passing"
       },
       {
@@ -43,15 +43,7 @@ _SERVICE=$(cat <<EOT
         "status": "passing"
       }
     ]
-  },
-  "watches":
-    [
-      {
-        "type": "checks",
-        "service": "${ECS_CLUSTER}",
-        "handler": "/usr/local/bin/instance-draining-handler.sh"
-      }
-    ]
+  }
 }
 EOT
 )

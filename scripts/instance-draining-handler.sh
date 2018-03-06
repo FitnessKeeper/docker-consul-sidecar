@@ -1,4 +1,5 @@
 #!/bin/bash
+# >>> Currently NOT USED <<<<
 # We probably want to replace this with something that eats json and do this in a non-horrible way
 # It would safe clock time to get status from the JSON input of the consul watch.
 

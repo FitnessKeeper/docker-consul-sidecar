@@ -12,6 +12,7 @@ if [ $STATUS = "InService" ]; then
   echo Status is Lifecycle State : $STATUS
   echo ECS Instance Status       : $CONTAINER_INSTANCE_STATUS
 elif [ $STATUS = "Terminating:Wait" ]; then
+  aws --region $REGION ecs update-container-instances-state --cluster $ECS_CLUSTER --container-instances $ARN --status DRAINING
   echo Status is Lifecycle State : $STATUS
   echo ECS Instance Status       : $CONTAINER_INSTANCE_STATUS
   exit 255
