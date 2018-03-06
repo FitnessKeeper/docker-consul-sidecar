@@ -47,8 +47,9 @@ _SERVICE=$(cat <<EOT
   "watches":
     [
       {
-        "type": "service",
+        "type": "checks",
         "service": "Instance Status",
+        "state": "critical",
         "handler": "/usr/local/bin/instance-draining-handler.sh"
       }
     ]
