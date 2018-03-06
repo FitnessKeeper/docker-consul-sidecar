@@ -1,4 +1,5 @@
-#!/bin/sh
+#!/bin/bash
+set -e 
 
 REGION=$(curl -s http://169.254.169.254/latest/meta-data/placement/availability-zone/ | sed 's/.$//')
 ID=$(curl -s http://169.254.169.254/latest/meta-data/instance-id)
