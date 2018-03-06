@@ -48,8 +48,7 @@ _SERVICE=$(cat <<EOT
     [
       {
         "type": "checks",
-        "service": "Instance Status",
-        "state": "critical",
+        "service": "${ECS_CLUSTER}",
         "handler": "/usr/local/bin/instance-draining-handler.sh"
       }
     ]
