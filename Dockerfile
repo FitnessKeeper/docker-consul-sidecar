@@ -1,9 +1,12 @@
+# Download and verify the integrity of the download first
+FROM sethvargo/hashicorp-installer AS installer
+ARG CONSUL_VERSION='1.0.6'
+ARG VAULT_VERSION='0.10.4'
+#RUN /install_hashicorp_tool "vault" "$VAULT_VERSION"
+RUN /install_hashicorp_tool "consul" "$CONSUL_VERSION"
+
 FROM alpine:3.6
-# This is the release of Consul to pull in.
-ENV CONSUL_VERSION=1.0.6
-# This is the location of the releases.
-ENV HASHICORP_RELEASES=https://releases.hashicorp.com
-RUN apk -v --update add \
+RUN apk -v --update --no-cache add \
         bash \
         python \
         py-pip \
@@ -21,21 +24,9 @@ RUN apk -v --update add \
     pip install --upgrade awscli==1.14.5 s3cmd==2.0.1 python-magic && \
     apk -v --purge del py-pip && \
     rm /var/cache/apk/*
-# Set up certificates, and Consul.
-RUN gpg --keyserver pgp.mit.edu --recv-keys 91A6E7F85D05C65630BEF18951852D87348FFC4C && \
-    mkdir -p /tmp/build && \
-    cd /tmp/build && \
-    wget ${HASHICORP_RELEASES}/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_linux_amd64.zip && \
-    wget ${HASHICORP_RELEASES}/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_SHA256SUMS && \
-    wget ${HASHICORP_RELEASES}/consul/${CONSUL_VERSION}/consul_${CONSUL_VERSION}_SHA256SUMS.sig && \
-    gpg --batch --verify consul_${CONSUL_VERSION}_SHA256SUMS.sig consul_${CONSUL_VERSION}_SHA256SUMS && \
-    grep consul_${CONSUL_VERSION}_linux_amd64.zip consul_${CONSUL_VERSION}_SHA256SUMS | sha256sum -c && \
-    unzip -d /bin consul_${CONSUL_VERSION}_linux_amd64.zip && \
-    cd /tmp && \
-    rm -rf /tmp/build && \
-    apk del gnupg openssl && \
-    rm -rf /root/.gnupg
 
+COPY --from=installer /bin/consul /bin/consul
+#COPY --from=installer /bin/vault /bin/vault
 COPY scripts/*.sh /usr/local/bin/
 COPY check_definitions/*.sh /usr/local/bin/check_definitions/
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
