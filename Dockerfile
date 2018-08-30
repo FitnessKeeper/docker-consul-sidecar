@@ -1,9 +1,9 @@
 # Download and verify the integrity of the download first
-FROM sethvargo/hashicorp-installer AS installer
+FROM sethvargo/hashicorp-installer:0.1.3 AS installer
 ARG CONSUL_VERSION='1.0.6'
 ARG VAULT_VERSION='0.10.4'
-#RUN /install_hashicorp_tool "vault" "$VAULT_VERSION"
-RUN /install_hashicorp_tool "consul" "$CONSUL_VERSION"
+#RUN /install-hashicorp-tool "vault" "$VAULT_VERSION"
+RUN /install-hashicorp-tool "consul" "$CONSUL_VERSION"
 
 FROM alpine:3.6
 RUN apk -v --update --no-cache add \
@@ -25,8 +25,8 @@ RUN apk -v --update --no-cache add \
     apk -v --purge del py-pip && \
     rm /var/cache/apk/*
 
-COPY --from=installer /bin/consul /bin/consul
-#COPY --from=installer /bin/vault /bin/vault
+COPY --from=installer /software/consul /bin/consul
+#COPY --from=installer /software/vault /bin/vault
 COPY scripts/*.sh /usr/local/bin/
 COPY check_definitions/*.sh /usr/local/bin/check_definitions/
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh
