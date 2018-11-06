@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ECS_CLUSTER=$(curl -s http://localhost:51678/v1/metadata | jq -r .Cluster)
-DOCKER_ID=$(head -1 /proc/self/cgroup  | cut -d'/' -f4)
+DOCKER_ID=$(awk -F/ '{ print $NF }' /proc/1/cpuset)
 
 _SERVICE=$(cat <<EOT
 {

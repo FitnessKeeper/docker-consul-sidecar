@@ -1,11 +1,4 @@
-# Download and verify the integrity of the download first
-FROM sethvargo/hashicorp-installer:0.1.3 AS installer
-ARG CONSUL_VERSION='1.0.6'
-ARG VAULT_VERSION='0.10.4'
-#RUN /install-hashicorp-tool "vault" "$VAULT_VERSION"
-RUN /install-hashicorp-tool "consul" "$CONSUL_VERSION"
-
-FROM alpine:3.6
+FROM asicsdigital/hermes:stable
 RUN apk -v --update --no-cache add \
         bash \
         python \
@@ -22,11 +15,9 @@ RUN apk -v --update --no-cache add \
         dumb-init \
         && \
     pip install --upgrade awscli==1.14.5 s3cmd==2.0.1 python-magic && \
-    apk -v --purge del py-pip && \
-    rm /var/cache/apk/*
+    apk -v --purge del py-pip
+    #rm /var/cache/apk/*
 
-COPY --from=installer /software/consul /bin/consul
-#COPY --from=installer /software/vault /bin/vault
 COPY scripts/*.sh /usr/local/bin/
 COPY check_definitions/*.sh /usr/local/bin/check_definitions/
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh

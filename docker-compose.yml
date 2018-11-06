@@ -7,7 +7,17 @@ services:
         source: dummy-check
         target: /consul_check_definitions
       - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${HOME}/.aws/credentials:/root/.aws/credentials"
+    environment:
+      #CHECKS: docker-test-warning docker-test
+      CHECKS: docker-test backup
+      AWS_PROFILE: ${AWS_PROFILE}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      AWS_DEFAULT_REGION: ${AWS_DEFAULT_REGION}
+      S3_BUCKET: somebucket-${USER}
   consul:
+    #image: "fitnesskeeper/consul"
     image: "consul:1.0.3"
     environment:
       CONSUL_BIND_INTERFACE: eth0

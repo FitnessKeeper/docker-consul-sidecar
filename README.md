@@ -18,6 +18,13 @@ This deploys the check definition into a local `/consul_check_definitions` direc
 
 - `CHECKS` - A JSON list of check names to activate. in the form of `CHECKS="foo bar"`
 
+#### Supported checks
+
+- `backup` - This check adds a backup job to the local container that backs up the consul node to an s3 bucket. This check requires that `S3_BUCKET` env var is passed and that the ECS Task has permissions to write to the bucket. It adds the check to the ECS Cluster. If the script can't find an ECS Cluster, it will create a service called default.
+
+- `ecs-cluster` - this check creates a service in Consul with the ECS Cluster name, and adds a number of checks, AMI Status, to validate that the AMI is the latest AMI. ECS CloudWatch, which is a cloudwatch metric used for tracking Cluster availibility, and Instance Status, a check used to terminate the consul process in the case of the underlying instance terminating.
+
+
 Usage
 -----
 
