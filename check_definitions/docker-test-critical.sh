@@ -1,6 +1,6 @@
 #!/bin/bash
 
-DOCKER_ID=$(head -1 /proc/self/cgroup  | cut -d'/' -f4)
+DOCKER_ID=$(awk -F/ '{ print $NF }' /proc/1/cpuset)
 
 _CHECK=$(cat <<EOT
 {
