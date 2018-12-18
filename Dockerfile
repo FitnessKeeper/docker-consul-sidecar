@@ -1,3 +1,7 @@
+FROM sethvargo/hashicorp-installer:0.1.3 AS installer
+ARG CONSUL_ESM_VERSION='0.3.1'
+RUN /install-hashicorp-tool "consul-esm" "$CONSUL_ESM_VERSION"
+
 FROM asicsdigital/hermes:stable
 RUN apk -v --update --no-cache add \
         bash \
@@ -18,6 +22,8 @@ RUN apk -v --update --no-cache add \
     apk -v --purge del py-pip
     #rm /var/cache/apk/*
 
+COPY --from=installer /software/consul-esm /opt/hermes/bin/consul-esm
+COPY consul-esm.d/* /etc/consul-esm.d/
 COPY scripts/*.sh /usr/local/bin/
 COPY check_definitions/*.sh /usr/local/bin/check_definitions/
 COPY docker-entrypoint.sh /usr/local/bin/docker-entrypoint.sh

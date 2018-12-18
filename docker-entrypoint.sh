@@ -20,5 +20,6 @@ if [ -n "$CHECKS" ]; then
    done
 fi
 
-while true ; do echo "I am sleeping"; sleep 60;done
-#/bin/bash
+cd /etc/consul-esm.d
+./config.hcl.sh > config.hcl
+consul-esm -config-file=/etc/consul-esm.d/config.hcl

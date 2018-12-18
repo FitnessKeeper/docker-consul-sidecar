@@ -32,7 +32,7 @@ _SERVICE=$(cat <<EOT
 EOT
 )
 
-echo ${_SERVICE}
+echo "${_SERVICE}"
 
 
 
