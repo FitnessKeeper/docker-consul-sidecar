@@ -16,4 +16,4 @@ _CHECK=$(cat <<EOT
 EOT
 )
 
-echo ${_CHECK}
+echo "${_CHECK}"
