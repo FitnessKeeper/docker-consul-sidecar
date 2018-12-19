@@ -75,7 +75,7 @@ tls_server_name = ""
 
 // The method to use for pinging external nodes. Defaults to "udp" but can
 // also be set to "socket" to use ICMP (which requires root privileges).
-ping_type = "udp"
+ping_type = "socket"
 
 EOT
 )
